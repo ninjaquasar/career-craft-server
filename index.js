@@ -29,6 +29,13 @@ async function run() {
 		await client.connect();
 		// Get/Create Database
 		const database = client.db("career_craft");
+		// Collections
+		const jobsCollection = database.collection("jobs");
+		// GET: All Jobs
+		app.get("/jobs", async (req, res) => {
+			const result = await jobsCollection.find().toArray();
+			res.send(result);
+		});
 		// Send ping for successful connection confirmation
 		await client.db("admin").command({ ping: 1 });
 		console.log("Successfully connected to Database.");
