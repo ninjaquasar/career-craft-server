@@ -36,6 +36,11 @@ async function run() {
 			const result = await jobsCollection.find().toArray();
 			res.send(result);
 		});
+		// GET: Hot Jobs
+		app.get("/jobs/hot", async (req, res) => {
+			const result = await jobsCollection.find().limit(12).toArray();
+			res.send(result);
+		});
 		// Send ping for successful connection confirmation
 		await client.db("admin").command({ ping: 1 });
 		console.log("Successfully connected to Database.");
