@@ -1,5 +1,5 @@
 const express = require("express");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const cors = require("cors");
 const dotenv = require("dotenv").config;
 const port = 5100;
@@ -38,7 +38,14 @@ async function run() {
 		});
 		// GET: Hot Jobs
 		app.get("/jobs/hot", async (req, res) => {
-			const result = await jobsCollection.find().limit(12).toArray();
+			const result = await jobsCollection.find().limit(8).toArray();
+			res.send(result);
+		});
+		// GET: Job Details
+		app.get("/jobs/:id", async (req, res) => {
+			const id = req.params.id;
+			const query = { _id: new ObjectId(id) };
+			const result = await jobsCollection.findOne(query);
 			res.send(result);
 		});
 		// Send ping for successful connection confirmation
