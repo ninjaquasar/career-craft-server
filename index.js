@@ -37,6 +37,11 @@ async function run() {
 			const result = await categoriesCollection.find().toArray();
 			res.send(result);
 		});
+		// GET: Hot Categories
+		app.get("/categories/hot", async (req, res) => {
+			const result = await categoriesCollection.find().limit(10).toArray();
+			res.send(result);
+		});
 		// GET: All Jobs
 		app.get("/jobs", async (req, res) => {
 			const result = await jobsCollection.find().toArray();
