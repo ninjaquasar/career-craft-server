@@ -30,7 +30,13 @@ async function run() {
 		// Get/Create Database
 		const database = client.db("career_craft");
 		// Collections
+		const categoriesCollection = database.collection("categories");
 		const jobsCollection = database.collection("jobs");
+		// GET: All Categories
+		app.get("/categories", async (req, res) => {
+			const result = await categoriesCollection.find().toArray();
+			res.send(result);
+		});
 		// GET: All Jobs
 		app.get("/jobs", async (req, res) => {
 			const result = await jobsCollection.find().toArray();
